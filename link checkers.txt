@@ -1,0 +1,4 @@
+11 14 up
+32 18 right
+11 30 down
+2 18 left

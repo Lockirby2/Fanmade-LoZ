@@ -1,0 +1,13 @@
+Straightwalking
+Projectile
+Speed
+HP
+strength
+Diagonal
+Invincible
+Make Clang
+Knockback
+Switch Image
+Direction
+x
+y

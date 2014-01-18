@@ -1,0 +1,109 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.image.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+import java.awt.event.*;
+import java.util.*;
+
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import javax.imageio.ImageIO;
+//import json.org.*;
+
+public class Monster implements Runnable{
+
+//	Global Variables
+
+	public int straightWalking;
+	public int speed;
+	public int HP;
+	public int strength;
+	public int x, y;
+	public boolean diagonal;
+	public boolean invincible;
+	public boolean damaging;
+	public boolean makeClang;
+	public boolean knockBack;
+	public boolean switchImage;
+	public String direction;
+	public ZeldaPlayWindow window;
+	public BufferedImage image;
+	public BufferedImage[] diePic = new BufferedImage[2];
+	public BufferedImage[] monPic = new BufferedImage[8];
+	public Random r = new Random();
+	public float projectile;
+
+	//public JLabel theLabel = new JLabel("SAGFAD");
+
+    public Monster(int theX, int theY, /*BufferedImage theScreenShot,*/ ZeldaPlayWindow theWindow) {
+
+    	x = theX * 34;
+    	y = theY * 34;
+    	this.window = theWindow;
+
+    	try {
+	    	this.diePic[0] = ImageIO.read(new File("Monster Sprites/Die/" + 1 + ".gif"));
+	    	this.diePic[1] = ImageIO.read(new File("Monster Sprites/Die/" + 2 + ".gif"));
+    	}
+	    catch (IOException e){
+	    }
+
+    }
+
+    public void run(){
+
+    }
+
+    public void move(){
+
+		if (direction == "u"){
+			y = y - 1;
+		}
+		else if (direction == "r"){
+			x = x + 1;
+		}
+		else if (direction == "d"){
+			y = y + 1;
+		}
+		else if (direction == "l"){
+			x = x - 1;
+		}
+
+    }
+
+    public void appear(){
+
+		this.direction = "u";
+
+    }
+
+    public void die(){
+
+		this.image = diePic[0];
+		this.knockBack = false;
+		this.makeClang = false;
+		this.invincible = true;
+		this.damaging = false;
+		try{
+			Thread.sleep(50);
+		}
+		catch (InterruptedException e){
+		}
+		this.image = diePic[1];
+		try{
+			Thread.sleep(50);
+		}
+		catch (InterruptedException e){
+		}
+		this.image = null;
+
+    }
+
+    public void checkChange(){
+
+		if (x%34 == 0 && y%34 == 0){
+			if (checkBlock()){
+				changeDirection();
+			}
